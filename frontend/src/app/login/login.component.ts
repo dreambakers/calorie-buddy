@@ -5,6 +5,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { UtilService } from '../services/util.service';
 import { UserService } from '../services/user.service';
 import { constants } from '../app.constants';
+import { EmitterService } from '../services/emitter.service';
 
 @Component({
   selector: 'app-login',
@@ -26,7 +27,7 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private utils: UtilService,
     private userService: UserService,
-    private route: ActivatedRoute) { }
+    private emitter: EmitterService) { }
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
@@ -34,7 +35,7 @@ export class LoginComponent implements OnInit {
       password: ['', [Validators.required, Validators.minLength(6)]],
     });
 
-    if (this.auth.isAuthenticated()) {
+    if (this.auth.isAuthenticated) {
       this.router.navigateByUrl('/home');
     }
   }
@@ -60,6 +61,7 @@ export class LoginComponent implements OnInit {
         const user = { ...response.body, authToken: response.headers.get('x-auth') };
         this.userService.setLoggedInUser(user);
         this.router.navigateByUrl('/home');
+        this.auth.onAuthComplete();
       } else {
         this.utils.openSnackBar('Error logging in', 'Ok');
       }

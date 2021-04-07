@@ -66,6 +66,7 @@ export class SignupComponent implements OnInit {
           const user = { ...res.body, authToken: res.headers.get('x-auth') };
           this.userService.setLoggedInUser(user);
           this.router.navigateByUrl('/home');
+          this.auth.onAuthComplete();
         } else {
           this.utils.openSnackBar('Error signing up', 'Ok');
         }

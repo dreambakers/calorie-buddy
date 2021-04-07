@@ -30,12 +30,7 @@ export class AuthInterceptor implements HttpInterceptor {
          return;
         }
         this.userService.unsetLoggedInUser();
-        this.router.navigate(['login'], {
-          queryParams: {
-            sessionExpired: true
-          },
-          // skipLocationChange: true
-        });
+        this.router.navigate(['login']);
       }
     }));
   }

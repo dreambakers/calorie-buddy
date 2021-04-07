@@ -10,6 +10,9 @@ import { EmitterService } from './emitter.service';
 })
 export class AuthenticationService {
 
+  isAuthenticated = this.userService.getLoggedInUser() ? true : false;
+  constants = constants;
+
   constructor(
     private http: HttpClient,
     private router: Router,
@@ -30,23 +33,24 @@ export class AuthenticationService {
     return this.http.post(requestUrl, user, {observe: 'response'});
   }
 
-  logout(sessionExpired = false) {
+  logout() {
     this.http.post(`${constants.apiUrl}/user/logout`, {}).subscribe();
     this.userService.unsetLoggedInUser();
-    if (!sessionExpired) {
-      this.router.navigateByUrl('login');
-    } else {
-      this.router.navigate(['login'], {
-        queryParams: {
-          sessionExpired: true
-        },
-        // skipLocationChange: true
-      });
-    }
+    this.router.navigateByUrl('login');
+    this.onLogout();
   }
 
-  isAuthenticated() {
-    return this.userService.getLoggedInUser() ? true : false;
+  // isAuthenticated() {
+  //   return this.userService.getLoggedInUser() ? true : false;
+  // }
+
+  onAuthComplete() {
+    this.emitterService.emit(this.constants.emitterKeys.onAuthComplete);
+    this.isAuthenticated = true;
+  }
+
+  onLogout() {
+    this.isAuthenticated = false;
   }
 
 }

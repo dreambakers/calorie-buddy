@@ -19,16 +19,11 @@ export class UtilService {
   }
 
   confirmDialog(title, message): Observable<any> {
-
     const dialogData = new ConfirmDialogModel(title, message);
-
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       minWidth: "400px",
-      // maxWidth: "400px",
       data: dialogData
     });
-
     return dialogRef.afterClosed();
   }
-
 }

@@ -1,33 +1,45 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { UtilService } from '../services/util.service';
 import { AuthenticationService } from '../services/auth.service';
 import { UserService } from '../services/user.service';
 import { Router } from '@angular/router';
+import { EmitterService } from '../services/emitter.service';
+import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
+import { constants } from '../app.constants';
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss']
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent implements OnInit, OnDestroy {
 
   user;
-  isLoggedIn;
   collapseNavbar = true;
+  destroy$: Subject<boolean> = new Subject<boolean>();
 
   constructor(
     private auth: AuthenticationService,
     private userService: UserService,
     private utils: UtilService,
-    private router: Router
+    private router: Router,
+    private emitterService: EmitterService
   ) { }
 
+
   ngOnInit() {
-    this.isLoggedIn = this.auth.isAuthenticated();
     this.user = this.userService.getLoggedInUser();
+    this.emitterService.emitter.pipe(takeUntil(this.destroy$)).subscribe((emitted) => {
+      switch(emitted.event) {
+        case constants.emitterKeys.onAuthComplete:
+          return this.user = this.userService.getLoggedInUser();
+      }
+    });
   }
 
   logout() {
+    this.toggleNavbar();
     this.utils.confirmDialog('Are you sure?', 'You will be logged out').subscribe(
       res => {
         if (res) {
@@ -37,4 +49,15 @@ export class NavbarComponent implements OnInit {
     );
   }
 
+  toggleNavbar() {
+    this.collapseNavbar = !this.collapseNavbar;
+  }
+
+  get isAuthenticated() {
+    return this.auth.isAuthenticated;
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next(true);
+  }
 }
