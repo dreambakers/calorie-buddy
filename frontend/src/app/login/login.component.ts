@@ -63,12 +63,12 @@ export class LoginComponent implements OnInit {
         this.router.navigateByUrl('/home');
         this.auth.onAuthComplete();
       } else {
-        this.utils.openSnackBar('Error logging in', 'Ok');
+        this.utils.openSnackBar('Error logging in');
       }
     }, (errorResponse: any) => {
       this.loading = false;
       const errorMessageKey = errorResponse.error.notFound ? 'No user found against the provided credentials' : 'Error logging in';
-      this.utils.openSnackBar(errorMessageKey, 'Ok');
+      this.utils.openSnackBar(errorMessageKey);
     });
   }
 }

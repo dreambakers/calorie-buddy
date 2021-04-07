@@ -3,5 +3,6 @@ $primary: #3949AB;
 @import '../node_modules/bootstrap/scss/bootstrap';
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background: #f5f5f5; }
 

@@ -1,1 +1,117 @@
-<p>add-food works!</p>
+<div class="container py-5">
+    <h4 class="mb-5">Add a new food item</h4>
+
+    <form [formGroup]="addFoodForm" (ngSubmit)="onSubmit()">
+        <mat-card>
+            <mat-form-field appearance="fill" class="w-100 mb-3">
+                <mat-label>Name</mat-label>
+                <input matInput formControlName="name" required>
+                <mat-error *ngIf="f.name.errors">
+                    Food name is required
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" class="w-100 mb-3">
+                <mat-label>Typical values</mat-label>
+                <input matInput formControlName="typicalValues" required>
+                <mat-error *ngIf="f.typicalValues.errors">
+                    Typical values are required
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" class="w-100 mb-3">
+                <mat-label>Unit of typical values</mat-label>
+                <mat-select formControlName="typicalValueUnit">
+                    <mat-option value="gram">Gram</mat-option>
+                    <mat-option value="litre">Litre</mat-option>
+                    <mat-option value="tablespoon">Tablespoon</mat-option>
+                    <mat-option value="cup">Cup</mat-option>
+                </mat-select>
+                <mat-error *ngIf="f.typicalValueUnit.errors">
+                    Please select a typical value unit from the dropdown
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" class="w-100 mb-3">
+                <mat-label>Calories</mat-label>
+                <input matInput formControlName="calories" required>
+                <mat-error *ngIf="f.calories.errors">
+                    <span *ngIf="f.calories.errors.required; else pattern">
+                        Calories value is required
+                    </span>
+                    <ng-template #pattern>
+                        Calories must be a decimal value
+                    </ng-template>
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" class="w-100 mb-3">
+                <mat-label>Carbs</mat-label>
+                <input matInput formControlName="carbs" required>
+                <mat-error *ngIf="f.carbs.errors">
+                    <span *ngIf="f.carbs.errors.required; else pattern">
+                        Carbs value is required
+                    </span>
+                    <ng-template #pattern>
+                        Carbs must be a decimal value
+                    </ng-template>
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" class="w-100 mb-3">
+                <mat-label>Fat</mat-label>
+                <input matInput formControlName="fat" required>
+                <mat-error *ngIf="f.fat.errors">
+                    <span *ngIf="f.fat.errors.required; else pattern">
+                        Fat value is required
+                    </span>
+                    <ng-template #pattern>
+                        Fat must be a decimal value
+                    </ng-template>
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" class="w-100 mb-3">
+                <mat-label>Protien</mat-label>
+                <input matInput formControlName="protien" required>
+                <mat-error *ngIf="f.protien.errors">
+                    <span *ngIf="f.protien.errors.required; else pattern">
+                        Protien value is required
+                    </span>
+                    <ng-template #pattern>
+                        Protien must be a decimal value
+                    </ng-template>
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" class="w-100 mb-3">
+                <mat-label>Salt</mat-label>
+                <input matInput formControlName="salt" required>
+                <mat-error *ngIf="f.salt.errors">
+                    <span *ngIf="f.salt.errors.required; else pattern">
+                        Salt value is required
+                    </span>
+                    <ng-template #pattern>
+                        Salt must be a decimal value
+                    </ng-template>
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" class="w-100 mb-3">
+                <mat-label>Sugar</mat-label>
+                <input matInput formControlName="sugar" required>
+                <mat-error *ngIf="f.sugar.errors">
+                    <span *ngIf="f.sugar.errors.required; else pattern">
+                        Sugar value is required
+                    </span>
+                    <ng-template #pattern>
+                        Sugar must be a decimal value
+                    </ng-template>
+                </mat-error>
+            </mat-form-field>
+
+            <button mat-raised-button color="primary" type="submit">Add food</button>
+        </mat-card>
+    </form>
+</div>
+

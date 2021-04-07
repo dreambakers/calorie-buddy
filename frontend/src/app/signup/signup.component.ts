@@ -68,7 +68,7 @@ export class SignupComponent implements OnInit {
           this.router.navigateByUrl('/home');
           this.auth.onAuthComplete();
         } else {
-          this.utils.openSnackBar('Error signing up', 'Ok');
+          this.utils.openSnackBar('Error signing up');
         }
       },
       errorResponse => {
@@ -82,7 +82,7 @@ export class SignupComponent implements OnInit {
           }
           return;
         }
-        this.utils.openSnackBar('Error signing up', 'Ok');
+        this.utils.openSnackBar('Error signing up');
       }
     );
   }

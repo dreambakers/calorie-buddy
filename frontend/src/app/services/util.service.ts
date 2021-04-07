@@ -12,7 +12,7 @@ export class UtilService {
   constructor(private _snackBar: MatSnackBar,
     public dialog: MatDialog) { }
 
-  openSnackBar(message: string, action = null, duration = 5000) {
+  openSnackBar(message: string, action = 'Ok', duration = 5000) {
     this._snackBar.open(message, action, {
       duration,
     });
