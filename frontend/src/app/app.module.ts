@@ -19,6 +19,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { MatSelectModule } from '@angular/material/select';
+import { MatTableModule } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -60,7 +62,9 @@ import { UpdateFoodComponent } from './home/update-food/update-food.component';
     MatFormFieldModule,
     MatInputModule,
     MatCardModule,
-    MatSelectModule
+    MatSelectModule,
+    MatTableModule,
+    MatSortModule
   ],
   providers: [
     {

@@ -15,4 +15,7 @@ export class FoodService {
     return this.http.post(`${constants.apiUrl}/food/`, food);
   }
 
+  getFoods() {
+    return this.http.get(`${constants.apiUrl}/food/`);
+  }
 }

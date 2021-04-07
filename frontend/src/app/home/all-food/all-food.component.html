@@ -1,3 +1,60 @@
-<div class="container">
-    all food works!
+<div class="container py-5">
+    <h4 class="mb-5">All food items</h4>
+
+    <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 w-100">
+        displayedColumns: string[] = ['name', 'typicalValues', 'typicalValueUnit', 'calories', 'carbs', 'fat', 'protien', 'salt', 'sugar'];
+
+        <!-- Position Column -->
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Name</th>
+          <td mat-cell *matCellDef="let food"> {{food.name}} </td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="typicalValues">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Typical Values </th>
+          <td mat-cell *matCellDef="let food"> {{food.typicalValues}} </td>
+        </ng-container>
+
+        <!-- Weight Column -->
+        <ng-container matColumnDef="typicalValueUnit">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Typical Value Unit </th>
+          <td mat-cell *matCellDef="let food"> {{food.typicalValueUnit}} </td>
+        </ng-container>
+
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="calories">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Calories </th>
+          <td mat-cell *matCellDef="let food"> {{food.calories}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="carbs">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Carbs </th>
+            <td mat-cell *matCellDef="let food"> {{food.carbs}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="fat">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Fat </th>
+            <td mat-cell *matCellDef="let food"> {{food.fat}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="protien">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Protien </th>
+            <td mat-cell *matCellDef="let food"> {{food.protien}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="salt">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Salt </th>
+            <td mat-cell *matCellDef="let food"> {{food.salt}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="sugar">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Sugar </th>
+            <td mat-cell *matCellDef="let food"> {{food.sugar}} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
 </div>
