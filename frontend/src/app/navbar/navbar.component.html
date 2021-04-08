@@ -14,7 +14,7 @@
     <div class="collapse navbar-collapse" [class.show]="!collapseNavbar" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item" [routerLinkActive]="['active']">
-          <a class="nav-link" (click)="toggleNavbar()">Home</a>
+          <a class="nav-link" [routerLink]="[ 'home' ]" (click)="toggleNavbar()">Home</a>
         </li>
         <ng-container *ngIf="!isAuthenticated">
             <li class="nav-item" [routerLinkActive]="['active']">
@@ -25,16 +25,10 @@
             </li>
         </ng-container>
       </ul>
-      <form class="form-inline my-2 my-lg-0">
-        <div class="nav-item text-white cursor-pointer" [matMenuTriggerFor]="menu" *ngIf="isAuthenticated">
-            <div class="d-flex align-items-center">
-                {{user.username}}
-                <mat-icon>arrow_drop_down</mat-icon>
-            </div>
-        </div>
-        <mat-menu #menu="matMenu">
-            <button mat-menu-item (click)="logout()">Logout</button>
-        </mat-menu>
-      </form>
+      <div class="nav-item text-white cursor-pointer" *ngIf="isAuthenticated" (click)="logout()">
+          <div class="d-flex align-items-center">
+            Logout
+          </div>
+      </div>
     </div>
   </nav>

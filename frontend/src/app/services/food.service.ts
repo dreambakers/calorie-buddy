@@ -18,4 +18,8 @@ export class FoodService {
   getFoods() {
     return this.http.get(`${constants.apiUrl}/food/`);
   }
+
+  findFoods(searchTerm) {
+    return this.http.post(`${constants.apiUrl}/food/find/`, searchTerm);
+  }
 }

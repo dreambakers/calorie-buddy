@@ -22,18 +22,20 @@ export class AllFoodComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.getFoodsList();
+  }
+
+  getFoodsList() {
     this.foodService.getFoods().subscribe(
       (res: any) => {
         if (res.success) {
           this.dataSource = new MatTableDataSource(res.foods);
+          this.dataSource.sort = this.sort;
+          this.utils.openSnackBar('Food list fetched');
         }
       }, err => {
         this.utils.openSnackBar('Error getting food items');
       }
-    )
-  }
-
-  ngAfterViewInit() {
-    this.dataSource.sort = this.sort;
+    );
   }
 }

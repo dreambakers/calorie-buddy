@@ -1,1 +1,25 @@
-<p>search-food works!</p>
+<div class="container py-5">
+    <h4 class="mb-5">Search Food</h4>
+
+    <form class="form-inline ml-auto my-2 my-lg-0" [formGroup]="searchFoodForm" (ngSubmit)="onSubmit()">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" formControlName="searchTerm">
+        <button mat-raised-button color="primary" type="submit" [disabled]="searchFoodForm.invalid">Search</button>
+    </form>
+
+    <div *ngFor="let food of foods">
+        <mat-card class="mb-3">
+            <h5>{{food.name}}</h5>
+            <hr>
+            <p><span class="font-weight-bold">Calories:</span>{{food.calories}}</p>
+            <p><span class="font-weight-bold">Fat:</span>{{food.fat}}</p>
+            <p><span class="font-weight-bold">Protien:</span>{{food.protien}}</p>
+            <p><span class="font-weight-bold">Carbs:</span>{{food.carbs}}</p>
+            <p><span class="font-weight-bold">Salt:</span>{{food.salt}}</p>
+            <p><span class="font-weight-bold">Sugar:</span>{{food.sugar}}</p>
+            <p><span class="font-weight-bold">Typical Value Unit:</span>{{food.typicalValueUnit}}</p>
+            <p><span class="font-weight-bold">Typical Values:</span>{{food.typicalValues}}</p>
+        </mat-card>
+    </div>
+
+</div>
+

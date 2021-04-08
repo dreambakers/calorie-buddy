@@ -1,7 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthenticationService } from '../services/auth.service';
-import { PasswordValidation } from '../shared/utils/password-validation';
 import { Router } from '@angular/router';
 import { UtilService } from '../services/util.service';
 import { UserService } from '../services/user.service';
@@ -31,16 +30,11 @@ export class SignupComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-
     this.signupForm = this.formBuilder.group({
       username: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9]+$'), Validators.minLength(5)]],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
-      confirmPassword: ['', [Validators.required]],
-    },
-      {
-        validator: PasswordValidation.MatchPassword
-      });
+      password: ['', [Validators.required, Validators.minLength(6)]]
+    })
   }
 
   get f() { return this.signupForm.controls; }

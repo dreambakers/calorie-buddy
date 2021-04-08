@@ -1,5 +1,11 @@
 <div class="container py-5">
-    <h4 class="mb-5">All food items</h4>
+
+    <div class="d-flex justify-content-between">
+      <h4 class="mb-5">All food items </h4>
+      <button mat-icon-button (click)="getFoodsList()">
+        <mat-icon>refresh</mat-icon>
+      </button>
+    </div>
 
     <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 w-100">
         displayedColumns: string[] = ['name', 'typicalValues', 'typicalValueUnit', 'calories', 'carbs', 'fat', 'protien', 'salt', 'sugar'];

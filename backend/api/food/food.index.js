@@ -6,5 +6,6 @@ const { authenticate } = require('../../middleware/authenticate');
 router
     .get('/', controller.getFoods)
     .post('/', authenticate, controller.addFood)
+    .post('/find', controller.findFoods)
 
 module.exports = router;
