@@ -30,16 +30,19 @@ export class LoginComponent implements OnInit {
     private emitter: EmitterService) { }
 
   ngOnInit() {
+    // Intialize Login form
     this.loginForm = this.formBuilder.group({
       username: ['', [Validators.required]],
       password: ['', [Validators.required, Validators.minLength(6)]],
     });
 
+    // If user is logged in then navigate to home
     if (this.auth.isAuthenticated) {
       this.router.navigateByUrl('/home');
     }
   }
 
+  // getter to return form controls
   get f() { return this.loginForm.controls; }
 
   onSubmit() {
@@ -48,6 +51,7 @@ export class LoginComponent implements OnInit {
       return;
     }
 
+    // user object to send to the login route of the API
     const user = {
       password: this.loginForm.value.password,
       username: this.loginForm.value.username,
@@ -55,11 +59,15 @@ export class LoginComponent implements OnInit {
     }
 
     this.loading = true;
+    // authenticate the user, in this case the signup flag is set to false
     this.auth.authenticateUser(user, false).subscribe((response: any) => {
       this.loading = false;
-      if (response.headers.get('x-auth')) {
-        const user = { ...response.body, authToken: response.headers.get('x-auth') };
+      // if response has an email, it means the login was succesful
+      if (response.body.email) {
+        const user = response.body;
+        // store user object in the local storage
         this.userService.setLoggedInUser(user);
+        // navigate to the home
         this.router.navigateByUrl('/home');
         this.auth.onAuthComplete();
       } else {
@@ -67,8 +75,8 @@ export class LoginComponent implements OnInit {
       }
     }, (errorResponse: any) => {
       this.loading = false;
-      const errorMessageKey = errorResponse.error.notFound ? 'No user found against the provided credentials' : 'Error logging in';
-      this.utils.openSnackBar(errorMessageKey);
+      const errMsg = errorResponse.error.notFound ? 'No user found against the provided credentials' : 'Error logging in';
+      this.utils.openSnackBar(errMsg);
     });
   }
 }

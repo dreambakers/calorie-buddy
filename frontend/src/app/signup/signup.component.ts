@@ -26,10 +26,10 @@ export class SignupComponent implements OnInit {
     private router: Router,
     private utils: UtilService,
     private userService: UserService,
-    private emitterService: EmitterService
   ) { }
 
   ngOnInit() {
+    // Intialize signup form
     this.signupForm = this.formBuilder.group({
       username: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9]+$'), Validators.minLength(5)]],
       email: ['', [Validators.required, Validators.email]],
@@ -37,6 +37,7 @@ export class SignupComponent implements OnInit {
     })
   }
 
+  // getter to return form controls
   get f() { return this.signupForm.controls; }
 
   onSubmit() {
@@ -46,6 +47,7 @@ export class SignupComponent implements OnInit {
       return;
     }
 
+    // user object to send to signup route of API
     const user = {
       email: this.signupForm.value.email,
       password: this.signupForm.value.password,
@@ -53,11 +55,13 @@ export class SignupComponent implements OnInit {
     }
 
     this.loading = true;
+    // authenticate the user, in this case the signup flag is set to true
     this.auth.authenticateUser(user, true).subscribe(
       (res: any) => {
         this.loading = false;
-        if (res.headers.get('x-auth')) {
-          const user = { ...res.body, authToken: res.headers.get('x-auth') };
+        if (res.body.email) {
+          const user = res.body;
+           // store user object in the local storage
           this.userService.setLoggedInUser(user);
           this.router.navigateByUrl('/home');
           this.auth.onAuthComplete();

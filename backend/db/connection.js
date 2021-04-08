@@ -1,8 +1,6 @@
 var mongoose = require('mongoose');
 
-const { dbConnectionUrl } = require('../config/config');
-
-mongoose.connect(dbConnectionUrl, {
+mongoose.connect('mongodb://localhost:27017/calorie-buddy', {
     useUnifiedTopology: true,
     useNewUrlParser: true,
     useFindAndModify: false

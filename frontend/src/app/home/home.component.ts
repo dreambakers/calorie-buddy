@@ -15,6 +15,7 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  // return authentication status so that we can decide to show the add food tab or not
   get isAuthenticated() {
     return this.auth.isAuthenticated;
   }

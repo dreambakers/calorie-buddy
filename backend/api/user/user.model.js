@@ -7,43 +7,22 @@ const UserSchema = new mongoose.Schema({
     username: {
         unique: true,
         type: String,
-        required: true,
-        validate: {
-            validator: function(v) {
-                return /^[a-zA-Z0-9]+$/.test(v);
-            },
-            minlength: 5,
-            message: '{VALUE} is not a valid username',
-        },
+        required: true
     },
     email: {
         unique: true,
         type: String,
         required: true,
-        validate: {
-            validator: validator.isEmail,
-            message: '{VALUE} is not a valid email',
-        },
     },
     password: {
         type: String,
         required: true,
-        minlength: 6
-    },
-    tokens: [{
-        access: {
-            type: String,
-            required: true
-        },
-        token: {
-            type: String,
-            required: true
-        },
-    }],
+    }
 },{
     timestamps: true
 });
 
+// overriding the toJSON function to only send non-sensitive info back to front-end
 UserSchema.methods.toJSON = function () {
     let user = this;
     let userObject = user.toObject();
@@ -53,32 +32,6 @@ UserSchema.methods.toJSON = function () {
         username: userObject.username,
         _id: userObject._id,
     };
-};
-
-UserSchema.methods.generateAuthToken = function () {
-    const user = this;
-    const access = 'auth';
-    const token = jwt.sign({ _id: user._id.toHexString(), access }, 'my secret').toString();
-    user.tokens.push({ access, token, lastUse: Date.now() });
-    return user.save().then(() => token);
-};
-
-UserSchema.statics.findByToken = function (token) {
-    let User = this;
-    let decoded;
-
-    try {
-        decoded = jwt.verify(token, 'my secret');
-    }
-    catch (e) {
-        return Promise.reject();
-    }
-
-    return User.findOne({
-        '_id': decoded._id,
-        'tokens.token': token,
-        'tokens.access': 'auth',
-    });
 };
 
 UserSchema.statics.findByCredentials = function (username, password) {
@@ -113,21 +66,6 @@ UserSchema.pre('save', function (next) {   //mongoose middleware, this is going 
         next();
     }
 });
-
-UserSchema.methods.removeToken = function (token) {
-    const user = this;
-    return user.updateOne({
-      // pull operator lets us pull out a wanted object
-      $pull: {
-        // pull from token array the token object with the same properties as the token passed
-        // into the method
-        tokens: {
-          // whole token object is remove
-          token,
-        },
-      },
-    });
-  };
 
 const User = mongoose.model('User', UserSchema);
 module.exports = { User };

@@ -19,8 +19,10 @@ export class AddFoodComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    // Defining regex so that only decimals can be input
     const decimalNumberPattern = Validators.pattern(/^[+-]?((\d+(\.\d*)?)|(\.\d+))$/);
 
+    // Intialize Add food form
     this.addFoodForm = this.formBuilder.group({
       name: ['', [Validators.required]],
       typicalValues: ['', [Validators.required, decimalNumberPattern]],
@@ -51,6 +53,4 @@ export class AddFoodComponent implements OnInit {
   }
 
   get f() { return this.addFoodForm.controls; }
-
-
 }

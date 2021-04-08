@@ -8,8 +8,6 @@
     </div>
 
     <table mat-table [dataSource]="dataSource" matSort matSortActive="name" matSortDirection="asc" class="mat-elevation-z8 w-100">
-        displayedColumns: string[] = ['name', 'typicalValues', 'typicalValueUnit', 'calories', 'carbs', 'fat', 'protien', 'salt', 'sugar'];
-
         <!-- Position Column -->
         <ng-container matColumnDef="name">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Name</th>

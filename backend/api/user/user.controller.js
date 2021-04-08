@@ -23,8 +23,7 @@ const signUp = async (req, res) => {
         }
 
         const user = await newUser.save();
-        const token = await user.generateAuthToken();
-        res.header('x-auth', token).json({
+        res.json({
             user,
             success: 1
         });
@@ -43,27 +42,14 @@ const login = async (req, res) => {
     try {
         const { username, password } = req.body;
         const user = await User.findByCredentials(username, password);
-        const token = await user.generateAuthToken();
-        res.header('x-auth', token).send(user);
+        res.send(user);
     } catch (error) {
         console.log(error);
         res.status(400).send({ success: 0, notFound: error.notFound || 0 });
     }
 }
 
-const logout = async ({ user, token }, res) => {
-    try {
-        await user.removeToken(token);
-        res.json({
-            success: 1
-        });
-    } catch (error) {
-        console.log('An error occurred logging out the user', error);
-    }
-}
-
 module.exports = {
     login,
-    signUp,
-    logout,
+    signUp
 }

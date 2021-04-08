@@ -35,10 +35,10 @@ export class AuthenticationService {
   }
 
   logout() {
-    this.http.post(`${constants.apiUrl}/user/logout`, {}).subscribe();
     this.userService.unsetLoggedInUser();
     this.router.navigateByUrl('login');
-    this.onLogout();
+    this.isAuthenticated = false;
+    this.util.openSnackBar('Successfully logged out!');
   }
 
   onAuthComplete() {
@@ -46,10 +46,4 @@ export class AuthenticationService {
     this.isAuthenticated = true;
     this.util.openSnackBar('You are now logged in!');
   }
-
-  onLogout() {
-    this.isAuthenticated = false;
-    this.util.openSnackBar('Successfully logged out!');
-  }
-
 }

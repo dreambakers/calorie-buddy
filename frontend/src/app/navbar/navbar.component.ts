@@ -23,16 +23,17 @@ export class NavbarComponent implements OnInit, OnDestroy {
     private auth: AuthenticationService,
     private userService: UserService,
     private utils: UtilService,
-    private router: Router,
     private emitterService: EmitterService
   ) { }
 
 
   ngOnInit() {
     this.user = this.userService.getLoggedInUser();
+    // this emitter listens for auth process completion. in that case, the user object is updated by picking from the local storage
     this.emitterService.emitter.pipe(takeUntil(this.destroy$)).subscribe((emitted) => {
       switch(emitted.event) {
         case constants.emitterKeys.onAuthComplete:
+          // set local user object to the one stored in local storage
           return this.user = this.userService.getLoggedInUser();
       }
     });

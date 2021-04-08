@@ -22,13 +22,10 @@ export class AllFoodComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.getFoodsList();
-  }
-
-  getFoodsList() {
     this.foodService.getFoods().subscribe(
       (res: any) => {
         if (res.success) {
+          // Update the data source to the returned data
           this.dataSource = new MatTableDataSource(res.foods);
           this.dataSource.sort = this.sort;
         }
@@ -38,9 +35,19 @@ export class AllFoodComponent implements OnInit {
     );
   }
 
-
   updateFoodList() {
-    this.getFoodsList();
-    this.utils.openSnackBar('Food list fetched');
+    this.foodService.getFoods().subscribe(
+      (res: any) => {
+        if (res.success) {
+          // Update the data source to the returned data
+          this.dataSource = new MatTableDataSource(res.foods);
+          this.dataSource.sort = this.sort;
+          // Show message so that there is feedback on refresh button click
+          this.utils.openSnackBar('Food list updated');
+        }
+      }, err => {
+        this.utils.openSnackBar('Error getting food items');
+      }
+    );
   }
 }

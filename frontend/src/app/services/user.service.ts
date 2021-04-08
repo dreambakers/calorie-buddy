@@ -21,10 +21,6 @@ export class UserService {
     localStorage.setItem('user', JSON.stringify(user));
   }
 
-  getPreferences() {
-    return JSON.parse(localStorage.getItem('preferences'));
-  }
-
   unsetLoggedInUser() {
     localStorage.removeItem('user');
   }

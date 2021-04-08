@@ -19,6 +19,7 @@ export class SearchFoodComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    // intialize search food form
     this.searchFoodForm = this.formBuilder.group({
       searchTerm: ['', [Validators.required]],
     });
@@ -36,6 +37,7 @@ export class SearchFoodComponent implements OnInit {
       (res: any) => {
         if (res.success) {
           this.foods = res.foods;
+          // display message in case no food found
           if (res.foods.length === 0) {
             this.utils.openSnackBar('No foods founds against the search term');
           }
