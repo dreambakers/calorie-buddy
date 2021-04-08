@@ -5,6 +5,7 @@ const app = express();
 app.use(express.json());
 
 const port = process.env.PORT || 3000;
+app.use(express.static('public'))
 
 app.use(function (req, res, next) {
   res.setHeader('Access-Control-Allow-Origin', '*');
