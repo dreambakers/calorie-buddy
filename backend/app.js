@@ -16,9 +16,9 @@ app.use(function (req, res, next) {
   next();
 });
 
-app.get('/', (req, res) => { res.send('API is running.') });
-
 app.use('/', routes);
+
+// basic food GET API can be accessed at <api_url>/food
 
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
