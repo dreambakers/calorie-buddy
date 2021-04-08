@@ -1,15 +1,15 @@
 const { mongoose } = require('../../db/connection');
-const jwt = require('jsonwebtoken');
-const validator = require('validator');
 const bcrypt = require('bcryptjs');
 
 const UserSchema = new mongoose.Schema({
     username: {
+        // unique flag to ensure that all usernames are unique
         unique: true,
         type: String,
         required: true
     },
     email: {
+        // unique flag to ensure that all emails are unique
         unique: true,
         type: String,
         required: true,
@@ -18,8 +18,6 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: true,
     }
-},{
-    timestamps: true
 });
 
 // overriding the toJSON function to only send non-sensitive info back to front-end
@@ -57,6 +55,7 @@ UserSchema.pre('save', function (next) {   //mongoose middleware, this is going 
     let user = this;
     if (user.isModified('password')) {    //checking to see if password is already hashed
         bcrypt.genSalt(10, (err, salt) => {
+            // hash the user password
             bcrypt.hash(user.password, salt, (err, hash) => {
                 user.password = hash;
                 next();

@@ -2,11 +2,14 @@ const { Food } = require('./food.model');
 
 const addFood = async (req, res) => {
     try {
+        // create new food document from request body
         let newFood = new Food({
             ...req.body
         });
+        // save the food
         newFood = await newFood.save();
         if (newFood) {
+            // return food object to front end
             return res.json({
                 success: 1,
                 newFood
@@ -23,7 +26,9 @@ const addFood = async (req, res) => {
 
 const getFoods = async (req, res) => {
     try {
+        // get all food from database
         const foods = await Food.find();
+        // return as JSON array to front-end
         return res.json({
             success: 1,
             foods

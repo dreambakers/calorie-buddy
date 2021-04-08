@@ -10,9 +10,6 @@ const foodSchema = new mongoose.Schema({
     protien: Number,
     salt: Number,
     sugar: Number,
-    createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-}, {
-    timestamps: true
 });
 
 const Food = mongoose.model('Food', foodSchema);
