@@ -15,7 +15,12 @@
                 <mat-label>Typical values</mat-label>
                 <input matInput formControlName="typicalValues" required>
                 <mat-error *ngIf="f.typicalValues.errors">
-                    Typical values are required
+                    <span *ngIf="f.typicalValues.errors.required; else pattern">
+                        Typical values are required
+                    </span>
+                    <ng-template #pattern>
+                        Typical value must be a decimal value
+                    </ng-template>
                 </mat-error>
             </mat-form-field>
 
