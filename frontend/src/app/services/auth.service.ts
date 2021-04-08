@@ -31,7 +31,7 @@ export class AuthenticationService {
       requestUrl += '/login'
     }
 
-    return this.http.post(requestUrl, user, {observe: 'response'});
+    return this.http.post(requestUrl, user);
   }
 
   logout() {

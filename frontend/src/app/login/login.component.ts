@@ -60,13 +60,13 @@ export class LoginComponent implements OnInit {
 
     this.loading = true;
     // authenticate the user, in this case the signup flag is set to false
-    this.auth.authenticateUser(user, false).subscribe((response: any) => {
+    this.auth.authenticateUser(user, false).subscribe((res: any) => {
       this.loading = false;
-      // if response has an email, it means the login was succesful
-      if (response.body.email) {
-        const user = response.body;
+      // if response has a user object, it means the login was succesful
+      if (res.user) {
+        const user = res.user;
         // store user object in the local storage
-        this.userService.setLoggedInUser(user);
+        this.userService.setLoggedInUser(res.user);
         // navigate to the home
         this.router.navigateByUrl('/home');
         this.auth.onAuthComplete();

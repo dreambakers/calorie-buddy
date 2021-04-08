@@ -59,10 +59,9 @@ export class SignupComponent implements OnInit {
     this.auth.authenticateUser(user, true).subscribe(
       (res: any) => {
         this.loading = false;
-        if (res.body.email) {
-          const user = res.body;
-           // store user object in the local storage
-          this.userService.setLoggedInUser(user);
+        if (res.user) {
+          // store user object in the local storage
+          this.userService.setLoggedInUser(res.user);
           this.router.navigateByUrl('/home');
           this.auth.onAuthComplete();
         } else {

@@ -49,7 +49,11 @@ const login = async (req, res) => {
         // extract username and password from the request body
         const { username, password } = req.body;
         const user = await User.findByCredentials(username, password);
-        res.send(user);
+        // return the user as JSON object
+        res.json({
+            user,
+            success: 1
+        });
     } catch (error) {
         console.log(error);
         res.status(400).send({ success: 0, notFound: error.notFound || 0 });
