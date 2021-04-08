@@ -31,11 +31,16 @@ export class AllFoodComponent implements OnInit {
         if (res.success) {
           this.dataSource = new MatTableDataSource(res.foods);
           this.dataSource.sort = this.sort;
-          this.utils.openSnackBar('Food list fetched');
         }
       }, err => {
         this.utils.openSnackBar('Error getting food items');
       }
     );
+  }
+
+
+  updateFoodList() {
+    this.getFoodsList();
+    this.utils.openSnackBar('Food list fetched');
   }
 }

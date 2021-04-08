@@ -31,7 +31,7 @@ import { HomeComponent } from './home/home.component';
 import { AllFoodComponent } from './home/all-food/all-food.component';
 import { SearchFoodComponent } from './home/search-food/search-food.component';
 import { AddFoodComponent } from './home/add-food/add-food.component';
-import { UpdateFoodComponent } from './home/update-food/update-food.component';
+import { AboutComponent } from './about/about.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +44,7 @@ import { UpdateFoodComponent } from './home/update-food/update-food.component';
     AllFoodComponent,
     SearchFoodComponent,
     AddFoodComponent,
-    UpdateFoodComponent
+    AboutComponent
   ],
   imports: [
     BrowserModule,

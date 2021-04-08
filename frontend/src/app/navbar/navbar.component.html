@@ -1,34 +1,37 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-    <a class="navbar-brand" routerLink='/dashboard'>
-        <mat-icon style="vertical-align: middle;">restaurant</mat-icon>
-        <span class="ml-1" style="vertical-align: middle;">
-            <span>
-                Calorie Buddy
-            </span>
-        </span>
-    </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" (click)="collapseNavbar = !collapseNavbar">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+  <a class="navbar-brand" routerLink='/dashboard'>
+      <mat-icon style="vertical-align: middle;">restaurant</mat-icon>
+      <span class="ml-1" style="vertical-align: middle;">
+          <span>
+            Calorie Buddy
+          </span>
+      </span>
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" (click)="collapseNavbar = !collapseNavbar">
+    <span class="navbar-toggler-icon"></span>
+  </button>
 
-    <div class="collapse navbar-collapse" [class.show]="!collapseNavbar" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item" [routerLinkActive]="['active']">
-          <a class="nav-link" [routerLink]="[ 'home' ]" (click)="toggleNavbar()">Home</a>
-        </li>
-        <ng-container *ngIf="!isAuthenticated">
-            <li class="nav-item" [routerLinkActive]="['active']">
-                <a class="nav-link" [routerLink]="[ '/login' ]" (click)="toggleNavbar()">Login</a>
-            </li>
-            <li class="nav-item" [routerLinkActive]="['active']">
+  <div class="collapse navbar-collapse" [class.show]="!collapseNavbar" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item" [routerLinkActive]="['active']">
+        <a class="nav-link" [routerLink]="[ 'home' ]" (click)="toggleNavbar()">Home</a>
+      </li>
+      <li class="nav-item" [routerLinkActive]="['active']">
+        <a class="nav-link" [routerLink]="[ '/about' ]" (click)="toggleNavbar()">About</a>
+      </li>
+      <ng-container *ngIf="!isAuthenticated">
+          <li class="nav-item" [routerLinkActive]="['active']">
+            <a class="nav-link" [routerLink]="[ '/login' ]" (click)="toggleNavbar()">Login</a>
+          </li>
+          <li class="nav-item" [routerLinkActive]="['active']">
             <a class="nav-link" [routerLink]="[ '/signup' ]" (click)="toggleNavbar()">Signup</a>
-            </li>
-        </ng-container>
-      </ul>
-      <div class="nav-item text-white cursor-pointer" *ngIf="isAuthenticated" (click)="logout()">
-          <div class="d-flex align-items-center">
-            Logout
-          </div>
-      </div>
+          </li>
+      </ng-container>
+    </ul>
+    <div class="nav-item text-white cursor-pointer" *ngIf="isAuthenticated" (click)="logout()">
+        <div class="d-flex align-items-center">
+          Logout
+        </div>
     </div>
-  </nav>
+  </div>
+</nav>
